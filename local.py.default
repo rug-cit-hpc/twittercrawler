@@ -1,0 +1,5 @@
+# Store all settings and keys here - to use: rename file to local.py
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
