@@ -55,6 +55,7 @@ def limit_handled(cursor, method):
             time.sleep(15 * 60)
 
 
+# Crawl through the tweets in sets of tweets called pages and collect the total set of tweets
 def crawl(method, **params):
     tweets = []
     for page in limit_handled(tweepy.Cursor(search_by[method]['api'], **params).pages(), method):
@@ -63,6 +64,7 @@ def crawl(method, **params):
     return tweets
 
 
+# Crawl va a set of account names
 def by_timeline(screen_names):
     tweets = []
     for screen_name in screen_names:
@@ -71,6 +73,7 @@ def by_timeline(screen_names):
     return tweets
 
 
+# Crawl via query
 def by_search(query):
     return crawl('search', q=query)
 
