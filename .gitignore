@@ -89,5 +89,4 @@ ENV/
 .ropeproject
 
 #PyCharm dev
-.xml
 .idea
