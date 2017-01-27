@@ -3,14 +3,10 @@ import sys
 import time
 import tweepy
 import argparse
+import local
 
-consumer_key = ""
-consumer_secret = ""
-access_token = ""
-access_token_secret = ""
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = tweepy.OAuthHandler(local.consumer_key, local.consumer_secret)
+auth.set_access_token(local.access_token, local.access_token_secret)
 
 api = tweepy.API(auth)
 
