@@ -5,11 +5,14 @@ import tweepy
 import argparse
 import local
 
+# create OAuthHandler for authentication process
 auth = tweepy.OAuthHandler(local.consumer_key, local.consumer_secret)
 auth.set_access_token(local.access_token, local.access_token_secret)
 
+# Create instance of the tweepy api with the created authenticator
 api = tweepy.API(auth)
 
+# Dict that stores parameters for later use in function calls
 search_by = {
     'timeline': {'api': api.user_timeline, 'limit': ('statuses', '/statuses/user_timeline')},
     'search': {'api': api.search, 'limit': ('search', '/search/tweets')},
@@ -88,8 +91,9 @@ def write_output(tweets, filename, format, columns):
             outfile.write(result)
 
 
+# Main function
 if __name__ == '__main__':
     args = parse_args()
-    tweets = locals()['by_'+args.type](args.parameters)
+    tweets = locals()['by_'+args.type](args.parameters)  # Call local crawl function based on crawl type
     write_output(tweets, args.output, args.format, args.columns)
 
