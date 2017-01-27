@@ -19,6 +19,7 @@ search_by = {
 }
 
 
+# Parse arguments given to the python command
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-t',
@@ -44,6 +45,7 @@ def parse_args():
     return args
 
 
+# Cursor method implemented to deal with request limits - 15 minute rests if limits are reached
 def limit_handled(cursor, method):
     limit_params = search_by[method]['limit']
     while True:
@@ -78,6 +80,7 @@ def by_search(query):
     return crawl('search', q=query)
 
 
+# Output the tweets in the requested format
 def write_output(tweets, filename, format, columns):
     tweets_out = []
     if format == 'raw':
