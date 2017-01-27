@@ -16,8 +16,9 @@ api = tweepy.API(auth)
 
 search_by = {
     'timeline': {'api': api.user_timeline, 'limit': ('statuses', '/statuses/user_timeline')},
-    'search'  : {'api': api.search, 'limit': ('search', '/search/tweets')},
+    'search': {'api': api.search, 'limit': ('search', '/search/tweets')},
 }
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -43,6 +44,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def limit_handled(cursor, method):
     limit_params = search_by[method]['limit']
     while True:
@@ -53,12 +55,14 @@ def limit_handled(cursor, method):
         except tweepy.RateLimitError:
             time.sleep(15 * 60)
 
+
 def crawl(method, **params):
     tweets = []
     for page in limit_handled(tweepy.Cursor(search_by[method]['api'], **params).pages(), method):
         tweets.extend(page)
     
     return tweets
+
 
 def by_timeline(screen_names):
     tweets = []
@@ -67,8 +71,10 @@ def by_timeline(screen_names):
     
     return tweets
 
+
 def by_search(query):
     return crawl('search', q=query)
+
 
 def write_output(tweets, filename, format, columns):
     tweets_out = []
@@ -84,6 +90,7 @@ def write_output(tweets, filename, format, columns):
     else:
         with open(filename, 'w') as outfile:
             outfile.write(result)
+
 
 if __name__ == '__main__':
     args = parse_args()
