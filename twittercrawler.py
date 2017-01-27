@@ -80,7 +80,7 @@ def write_output(tweets, filename, format, columns):
     if format == 'raw':
         tweets_out = [str(tweet._json) for tweet in tweets]
     elif format == 'tsv':
-        tweets_out = ['\t'.join([str(getattr(tweet, col)) for col in cols]) for tweet in tweets]
+        tweets_out = ['\t'.join([str(getattr(tweet, col)) for col in columns]) for tweet in tweets]
     
     result = '\n'.join(tweets_out)
     
