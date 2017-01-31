@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
 import time
 import tweepy
 import argparse
 import local
+import json
 
 # create OAuthHandler for authentication process
 auth = tweepy.OAuthHandler(local.consumer_key, local.consumer_secret)
@@ -84,11 +84,13 @@ def by_search(query):
 def write_output(tweets, filename, format, columns):
     tweets_out = []
     if format == 'raw':
-        tweets_out = [str(tweet._json) for tweet in tweets]
+        tweets_out = [json.dumps(tweet._json) for tweet in tweets]
     elif format == 'tsv':
         tweets_out = ['\t'.join([str(getattr(tweet, col)) for col in columns]) for tweet in tweets]
     
-    result = '\n'.join(tweets_out)
+    result = '{"output": {"tweets": [' + ',\n'.join(tweets_out) + ']}}'
+    # result = tweets_out
+    # result.replace('\'', '"')
     
     if filename == 'stdout':
         print(result)
