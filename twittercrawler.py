@@ -118,4 +118,4 @@ def run_twittercrawler(type, *params):
         print('Streaming functionality not yet implemented')
         return None
 
-    return [tweet._json['id'] for tweet in tweets]
+    return [tweet._json for tweet in tweets]
