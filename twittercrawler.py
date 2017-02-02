@@ -89,8 +89,6 @@ def write_output(tweets, filename, format, columns):
         tweets_out = ['\t'.join([str(getattr(tweet, col)) for col in columns]) for tweet in tweets]
     
     result = '{"output": {"tweets": [' + ',\n'.join(tweets_out) + ']}}'
-    # result = tweets_out
-    # result.replace('\'', '"')
     
     if filename == 'stdout':
         print(result)
@@ -104,4 +102,3 @@ if __name__ == '__main__':
     args = parse_args()
     tweets = locals()['by_'+args.type](args.parameters)  # Call local crawl function based on crawl type
     write_output(tweets, args.output, args.format, args.columns)
-
