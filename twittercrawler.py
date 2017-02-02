@@ -10,7 +10,7 @@ auth = tweepy.OAuthHandler(local.consumer_key, local.consumer_secret)
 auth.set_access_token(local.access_token, local.access_token_secret)
 
 # Create instance of the tweepy api with the created authenticator
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 # Dict that stores parameters for later use in function calls
 search_by = {
@@ -40,7 +40,7 @@ def parse_args():
                         help='output file. Default: standard output',
                         default='stdout')
     parser.add_argument('parameters', metavar='search_parameter', type=str, nargs='+',
-                    help='Input parameter for the crawler (e.g. user, query  or keyword). Separate multiple items by spaces.')
+                        help='Input parameter for the crawler (e.g. user, query  or keyword). Separate multiple items by spaces.')
     args = parser.parse_args()
     return args
 
@@ -107,8 +107,7 @@ if __name__ == '__main__':
 def run_twittercrawler(type, *params):
     """Starts this twittercrawler instance based on the input parameters supplied.
     :param type: The type of crawl desired - 'timeline', 'search', 'streaming'
-    :param params: A tuple of any other parameters given to the function. These are the account names, queries and
-    timeline start/end datetimes.
+    :param params: A tuple of any other parameters given to the function. These are the account names, queries and timeline start/end datetimes.
     """
     tweets = None
     if type == 'timeline':  # Call specific crawl function based on type
@@ -119,4 +118,4 @@ def run_twittercrawler(type, *params):
         print('Streaming functionality not yet implemented')
         return None
 
-    return [tweet._json for tweet in tweets]
+    return [tweet._json['id'] for tweet in tweets]
