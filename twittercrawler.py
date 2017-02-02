@@ -105,6 +105,11 @@ if __name__ == '__main__':
 
 
 def run_twittercrawler(type, *params):
+    """Starts this twittercrawler instance based on the input parameters supplied.
+    :param type: The type of crawl desired - 'timeline', 'search', 'streaming'
+    :param params: A tuple of any other parameters given to the function. These are the account names, queries and
+    timeline start/end datetimes.
+    """
     tweets = None
     if type == 'timeline':  # Call specific crawl function based on type
         tweets = by_timeline(params[0])
