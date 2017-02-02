@@ -104,14 +104,14 @@ if __name__ == '__main__':
     write_output(tweets, args.output, args.format, args.columns)
 
 
-def run_twittercrawler(type, output, query, time_start, time_end, format='raw', columns=''):
-
+def run_twittercrawler(type, *params):
     tweets = None
-    if type=='timeline': # Call local crawl function based on crawl type
-        tweets = 0
-    elif type=='search':
-        tweets=0
-    elif type=='streaming':
-        tweets=0
+    if type == 'timeline':  # Call specific crawl function based on type
+        tweets = by_timeline(params[0])
+    elif type == 'search':
+        tweets = by_search(params[0])
+    elif type == 'streaming':
+        print('Streaming functionality not yet implemented')
+        return None
 
-    write_output(tweets, output, format, columns)
+    return [tweet._json for tweet in tweets]
