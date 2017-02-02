@@ -102,3 +102,16 @@ if __name__ == '__main__':
     args = parse_args()
     tweets = locals()['by_'+args.type](args.parameters)  # Call local crawl function based on crawl type
     write_output(tweets, args.output, args.format, args.columns)
+
+
+def run_twittercrawler(type, output, query, time_start, time_end, format='raw', columns=''):
+
+    tweets = None
+    if type=='timeline': # Call local crawl function based on crawl type
+        tweets = 0
+    elif type=='search':
+        tweets=0
+    elif type=='streaming':
+        tweets=0
+
+    write_output(tweets, output, format, columns)
